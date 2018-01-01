@@ -7,18 +7,19 @@ class Calligraphy {
       container: "#paper",
       width: 800,
       height: 600,
-      debug: true
+      debug: false
     });
     this.test();
   }
   test() {
+    const start = { x: 100, y: 100 };
+
+    //calculate n1 and n2 curve points
+
     this.paper
-      .path(250, 140) //move to point
-      .curveTo(0, 0, 50, -100, 100, 0) //x,y, ctrlx1,ctrly1, ctrlx2,ctrly2
-      .curveTo(100, 0, 150, 100, 200, 0) //x,y, ctrlx1,ctrly1, ctrlx2,ctrly2
-      .curveTo(200, 0, 250, -100, 300, 0) //x,y, ctrlx1,ctrly1, ctrlx2,ctrly2
-      .lineTo(300, 200) //x,y
-      .lineTo(0, 200) //x,y
+      .path(start.x, start.y) //move to point
+      .curveTo(50, 150, 80, 180, 200, 400) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
+      .curveTo(150, 250, 120, 220, 0, 0) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
       .closePath(); //end
 
     this.paper.draw();
