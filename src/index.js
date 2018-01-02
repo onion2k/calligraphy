@@ -20,20 +20,31 @@ class Calligraphy {
     this.test();
   }
   test() {
-    const start = { x: 200, y: 100 };
+    const stroke = {
+      x1: 200, //from
+      y1: 100,
+      x2: 0, //to
+      y2: 400,
+      type: "outercurve",
+      angle: 30
+    };
 
-    //calculate n1 and n2 curve points
+    /*
+        distance between edges = pressure
 
-    // pressure
-    // angle
-    // type
+        how to vary pressure through the stroke? control points?
+
+        multiply distance by angle (100% at perpendicular)
+        
+        convert to control point data for stroke type
+    */
 
     const n1 = { x1: 330, y1: 0, x2: 330, y2: 400 };
     const n2 = { x1: 350, y1: 400, x2: 350, y2: 0 };
 
     this.paper
-      .path(start.x, start.y) //move to point
-      .curveTo(n1.x1, n1.y1, n1.x2, n1.y2, 0, 400) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
+      .path(stroke.x1, stroke.y1) //move to point
+      .curveTo(n1.x1, n1.y1, n1.x2, n1.y2, stroke.x2, stroke.y2) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
       .curveTo(n2.x1, n2.y1, n2.x2, n2.y2, 0, 0) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
       .lineTo(0, 400)
       .fill(0)
