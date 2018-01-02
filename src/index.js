@@ -5,49 +5,95 @@ class Calligraphy {
   constructor() {
     this.paper = new Rune({
       container: "#paper",
-      width: 800,
-      height: 600,
-      debug: true
+      debug: false
     });
     this.test();
   }
   test() {
-    const stroke = {
-      type: "outercurve",
+    let width = 400;
+    let pressure = 0.05;
+
+    let stroke = {
       posX: 100,
       posY: 100,
       x1: 0, //from
       y1: 0,
       x2: 0, //to - relative to start
-      y2: 400,
-      angle: 30
+      y2: width,
+      angle: 30,
+      curve: {
+        inner: {
+          x1: width * 0.75,
+          y1: 0,
+          x2: width * 0.75,
+          y2: width
+        },
+        outer: {
+          x1: width * 0.75 + width * pressure,
+          y1: width,
+          x2: width * 0.75 + width * pressure,
+          y2: 0
+        }
+      }
     };
 
-    stroke.curve = { x1: 330, y1: stroke.y1, x2: 330, y2: stroke.y2 };
+    this.outercurve(stroke);
 
-    /*
-        distance between edges = pressure
+    width = 400;
+    pressure = 0.025;
 
-        how to vary pressure through the stroke? control points?
+    stroke = {
+      posX: 500,
+      posY: 100,
+      x1: 0, //from
+      y1: 0,
+      x2: 0, //to - relative to start
+      y2: width,
+      angle: 30,
+      curve: {
+        inner: {
+          x1: width * 0.75,
+          y1: 0,
+          x2: width * 0.75,
+          y2: width
+        },
+        outer: {
+          x1: width * 0.75 + width * pressure,
+          y1: width,
+          x2: width * 0.75 + width * pressure,
+          y2: 0
+        }
+      }
+    };
 
-        multiply distance by angle (100% at perpendicular)
-        
-        convert to control point data for stroke type
-    */
+    this.outercurve(stroke);
 
-    const n1 = { x1: 330, y1: 0, x2: 330, y2: 400 };
-    const n2 = { x1: 350, y1: 400, x2: 350, y2: 0 };
+    this.paper.draw();
+  }
 
+  outercurve(stroke) {
     this.paper
       .path(stroke.posX, stroke.posY) //move to point
       .moveTo(stroke.x1, stroke.y1)
-      .curveTo(n1.x1, n1.y1, n1.x2, n1.y2, stroke.x2, stroke.y2) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
-      .curveTo(n2.x1, n2.y1, n2.x2, n2.y2, stroke.x1, stroke.y1) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
+      .curveTo(
+        stroke.curve.inner.x1,
+        stroke.curve.inner.y1,
+        stroke.curve.inner.x2,
+        stroke.curve.inner.y2,
+        stroke.x2,
+        stroke.y2
+      ) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
+      .curveTo(
+        stroke.curve.outer.x1,
+        stroke.curve.outer.y1,
+        stroke.curve.outer.x2,
+        stroke.curve.outer.y2,
+        stroke.x1,
+        stroke.y1
+      ) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
       .lineTo(stroke.x2, stroke.y2)
       .fill(0)
       .closePath(); //end
-
-    this.paper.draw();
   }
 }
 
