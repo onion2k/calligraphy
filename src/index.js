@@ -24,6 +24,10 @@ class Calligraphy {
 
     //calculate n1 and n2 curve points
 
+    // pressure
+    // angle
+    // type
+
     const n1 = { x1: 330, y1: 0, x2: 330, y2: 400 };
     const n2 = { x1: 350, y1: 400, x2: 350, y2: 0 };
 
