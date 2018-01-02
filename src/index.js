@@ -40,7 +40,7 @@ class Calligraphy {
     this.outercurve(stroke);
 
     width = 400;
-    pressure = 0.025;
+    pressure = 0.05;
 
     stroke = {
       posX: 500,
@@ -68,6 +68,21 @@ class Calligraphy {
 
     this.outercurve(stroke);
 
+    this.paper
+      .path(stroke.posX, stroke.posY) //move to point
+      .moveTo(stroke.x2, stroke.y2)
+      .curveTo(-50, 400, -50, 380, -50, 380)
+      .fill(0, 0, 0, 0.00000001)
+      .stroke(0);
+
+    this.paper
+      .path(stroke.posX, stroke.posY) //move to point
+      .moveTo(-50, 380)
+      .curveTo(-50, 380, -50, 360, 0, 360)
+      .curveTo(0, 360, 50, 360, 200, 400)
+      .fill(0, 0, 0, 0.00000001)
+      .stroke(0);
+
     this.paper.draw();
   }
 
@@ -91,9 +106,7 @@ class Calligraphy {
         stroke.x1,
         stroke.y1
       ) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
-      .lineTo(stroke.x2, stroke.y2)
-      .fill(0)
-      .closePath(); //end
+      .fill(0);
   }
 }
 
