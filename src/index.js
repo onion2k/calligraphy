@@ -7,7 +7,23 @@ class Calligraphy {
       container: "#paper",
       debug: false
     });
-    this.test();
+    this.continuous();
+    // this.test();
+  }
+  continuous() {
+    this.paper
+      .path(200, 100) //move to point
+      .moveTo(0, 0)
+      .curveTo(-50, 0, -50, -20)
+      .curveTo(-50, -40, 0, -40)
+      .curveTo(50, -40, 300, 0)
+      .curveTo(550, 40, 500, -20)
+      .curveTo(450, -80, 300, -40)
+      .fill(0, 0, 0, 0.00000001)
+      .strokeJoin("round")
+      .stroke(0);
+
+    this.paper.draw();
   }
   test() {
     let width = 400;
@@ -75,6 +91,7 @@ class Calligraphy {
       .curveTo(-50, 380, -50, 360, 0, 360)
       .curveTo(0, 360, 50, 360, 200, 400)
       .fill(0, 0, 0, 0.00000001)
+      .strokeJoin("round")
       .stroke(0);
 
     this.paper.draw();
