@@ -8,20 +8,28 @@ class Calligraphy {
       debug: false
     });
     this.continuous();
-    // this.test();
+    this.test();
   }
   continuous() {
     this.paper
-      .path(200, 100) //move to point
+      .path(400, 600) //move to point
       .moveTo(0, 0)
       .curveTo(-50, 0, -50, -20)
       .curveTo(-50, -40, 0, -40)
-      .curveTo(50, -40, 300, 0)
-      .curveTo(550, 40, 500, -20)
-      .curveTo(450, -80, 300, -40)
+      .curveTo(50, -40, 200, -20)
+      .curveTo(350, 0, 400, 0)
+      .curveTo(450, 0, 450, -20)
+      .curveTo(450, -40, 400, -40)
       .fill(0, 0, 0, 0.00000001)
       .strokeJoin("round")
       .stroke(0);
+
+    this.paper.circle(400 + -50, 600 + -20, 3);
+    this.paper.circle(400 + 0, 600 + -40, 3);
+    this.paper.circle(400 + 200, 600 + -20, 3);
+    this.paper.circle(400 + 400, 600 + 0, 3);
+    this.paper.circle(400 + 450, 600 + -20, 3);
+    this.paper.circle(400 + 400, 600 + -40, 3);
 
     this.paper.draw();
   }
@@ -87,9 +95,9 @@ class Calligraphy {
     this.paper
       .path(stroke.posX, stroke.posY) //move to point
       .moveTo(stroke.x2, stroke.y2)
-      .curveTo(-50, 400, -50, 380, -50, 380)
-      .curveTo(-50, 380, -50, 360, 0, 360)
-      .curveTo(0, 360, 50, 360, 200, 400)
+      .curveTo(-50, 400, -50, 380)
+      .curveTo(-50, 360, 0, 360)
+      .curveTo(50, 360, 200, 400)
       .fill(0, 0, 0, 0.00000001)
       .strokeJoin("round")
       .stroke(0);
