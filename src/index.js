@@ -7,12 +7,13 @@ class Calligraphy {
       container: "#paper",
       debug: false
     });
-    this.continuous();
+  }
+  letter(x, y, char) {
     this.test();
   }
   continuous() {
     this.paper
-      .path(400, 600) //move to point
+      .path(400, 600)
       .moveTo(0, 0)
       .curveTo(-50, 0, -50, -20)
       .curveTo(-50, -40, 0, -40)
@@ -38,35 +39,6 @@ class Calligraphy {
     let pressure = 0.05;
 
     let stroke = {
-      posX: 100,
-      posY: 100,
-      x1: 0, //from
-      y1: 0,
-      x2: 0, //to - relative to start
-      y2: width,
-      angle: 30,
-      curve: {
-        inner: {
-          x1: width * 0.75,
-          y1: 0,
-          x2: width * 0.75,
-          y2: width
-        },
-        outer: {
-          x1: width * 0.75 + width * pressure,
-          y1: width,
-          x2: width * 0.75 + width * pressure,
-          y2: 0
-        }
-      }
-    };
-
-    this.outercurve(stroke);
-
-    width = 400;
-    pressure = 0.05;
-
-    stroke = {
       posX: 500,
       posY: 100,
       x1: 0, //from
@@ -130,3 +102,5 @@ class Calligraphy {
 }
 
 const cal = new Calligraphy();
+
+cal.letter(100, 100, "D");
