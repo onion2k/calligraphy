@@ -73,7 +73,9 @@ class Calligraphy {
       .fill(0, 0, 0, 0.00000001)
       .strokeJoin("round")
       .stroke(0);
+  }
 
+  render() {
     this.paper.draw();
   }
 
@@ -104,3 +106,4 @@ class Calligraphy {
 const cal = new Calligraphy();
 
 cal.letter(100, 100, "D");
+cal.render();
