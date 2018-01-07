@@ -9,7 +9,7 @@ class Calligraphy {
   constructor() {
     this.paper = new Rune({
       container: "#paper",
-      debug: false
+      debug: true
     });
 
     this.size = 400;
@@ -25,20 +25,62 @@ class Calligraphy {
     }
   }
   continuous() {
+    let points = [50, 30, 50, 10]; //, 250, 30, 450, 50, 500, 30, 450, 10
+
+    let path = this.paper.path(200, 200);
+    path.moveTo(0, 0);
+    path.curveTo(-50, 0, -50, -20);
+
+    let cp = { x: 0, y: 50 };
+
+    for (let x = 2; x < points.length; x += 2) {
+      let pp = { x: points[x - 2], y: points[x - 1] };
+      let p = { x: points[x], y: points[x + 1] };
+      if (pp.x !== cp.x) {
+        if (pp.x < cp.x) {
+          cp.x = cp.x + pp.x;
+        } else {
+          cp.x = cp.x - pp.x;
+        }
+      }
+      if (pp.y !== cp.y) {
+        if (pp.y < cp.y) {
+          cp.y = cp.y + pp.y;
+        } else {
+          cp.y = cp.y - pp.y;
+        }
+      }
+
+      console.log(cp);
+
+      path.curveTo(cp.x, cp.y, p.x, p.y);
+    }
+
+    path.fill(0, 0, 0, 0.00000001);
+    path.strokeJoin("round");
+    path.stroke(0);
+
     this.paper
-      .path(400, 600)
+      .path(200, 500)
       .moveTo(0, 0)
       .curveTo(-50, 0, -50, -20)
       .curveTo(-50, -40, 0, -40)
-      .curveTo(50, -40, 200, -20)
-      .curveTo(350, 0, 400, 0)
-      .curveTo(450, 0, 450, -20)
-      .curveTo(450, -40, 400, -40)
       .fill(0, 0, 0, 0.00000001)
       .strokeJoin("round")
       .stroke(0);
 
-    this.paper.draw();
+    // this.paper
+    //   .path(200, 200)
+    //   .moveTo(0, 0)
+    //   .curveTo(-50, 0, -50, -20)
+    //   .curveTo(-50, -40, 0, -40)
+    //   .curveTo(50, -40, 200, -20)
+    //   .curveTo(350, 0, 400, 0)
+    //   .curveTo(450, 0, 450, -20)
+    //   .curveTo(450, -40, 400, -40)
+    //   .fill(0, 0, 0, 0.00000001)
+    //   .strokeJoin("round")
+    //   .stroke(0);
   }
 
   test() {
@@ -146,5 +188,6 @@ class Calligraphy {
 
 const cal = new Calligraphy();
 
-cal.letter(100, 100, "D");
+// cal.letter(100, 100, "D");
+cal.continuous();
 cal.render();
