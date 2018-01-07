@@ -24,24 +24,21 @@ class Calligraphy {
         break;
     }
   }
-  continuous() {
-    let points = [0, 0, 0, 30, 50, 10, 250, 30, 450, 50, 500, 30, 450, 10];
+  continuous(x, y, points) {
+    let path = this.paper.path(x, y);
 
-    let path = this.paper.path(200, 200);
     path.moveTo(50, 50);
-    path.curveTo(0, 50, 0, 30);
 
-    let cp = { x: 0, y: 50 };
+    let cp = { x: 0, y: -50 };
 
-    for (let x = 4; x < points.length; x += 2) {
-      let ppp = { x: points[x - 4], y: points[x - 3] };
+    for (let x = 2; x < points.length; x += 2) {
       let pp = { x: points[x - 2], y: points[x - 1] };
       let p = { x: points[x], y: points[x + 1] };
 
       if (pp.x !== cp.x) {
         cp.x = -1 * (cp.x - pp.x) + pp.x;
       }
-      if (pp.y !== ppp.y) {
+      if (pp.y !== cp.y) {
         cp.y = -1 * (cp.y - pp.y) + pp.y;
       }
 
@@ -159,5 +156,20 @@ class Calligraphy {
 const cal = new Calligraphy();
 
 // cal.letter(100, 100, "D");
-cal.continuous();
+cal.continuous(100, 100, [
+  0,
+  0,
+  0,
+  30,
+  50,
+  10,
+  250,
+  30,
+  450,
+  50,
+  500,
+  30,
+  450,
+  10
+]);
 cal.render();
