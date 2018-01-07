@@ -25,33 +25,25 @@ class Calligraphy {
     }
   }
   continuous() {
-    let points = [50, 30, 50, 10]; //, 250, 30, 450, 50, 500, 30, 450, 10
+    let points = [0, 0, 0, 30, 50, 10, 250, 30, 450, 50, 500, 30, 450, 10];
 
     let path = this.paper.path(200, 200);
-    path.moveTo(0, 0);
-    path.curveTo(-50, 0, -50, -20);
+    path.moveTo(50, 50);
+    path.curveTo(0, 50, 0, 30);
 
     let cp = { x: 0, y: 50 };
 
-    for (let x = 2; x < points.length; x += 2) {
+    for (let x = 4; x < points.length; x += 2) {
+      let ppp = { x: points[x - 4], y: points[x - 3] };
       let pp = { x: points[x - 2], y: points[x - 1] };
       let p = { x: points[x], y: points[x + 1] };
-      if (pp.x !== cp.x) {
-        if (pp.x < cp.x) {
-          cp.x = cp.x + pp.x;
-        } else {
-          cp.x = cp.x - pp.x;
-        }
-      }
-      if (pp.y !== cp.y) {
-        if (pp.y < cp.y) {
-          cp.y = cp.y + pp.y;
-        } else {
-          cp.y = cp.y - pp.y;
-        }
-      }
 
-      console.log(cp);
+      if (pp.x !== cp.x) {
+        cp.x = -1 * (cp.x - pp.x) + pp.x;
+      }
+      if (pp.y !== ppp.y) {
+        cp.y = -1 * (cp.y - pp.y) + pp.y;
+      }
 
       path.curveTo(cp.x, cp.y, p.x, p.y);
     }
@@ -59,28 +51,6 @@ class Calligraphy {
     path.fill(0, 0, 0, 0.00000001);
     path.strokeJoin("round");
     path.stroke(0);
-
-    this.paper
-      .path(200, 500)
-      .moveTo(0, 0)
-      .curveTo(-50, 0, -50, -20)
-      .curveTo(-50, -40, 0, -40)
-      .fill(0, 0, 0, 0.00000001)
-      .strokeJoin("round")
-      .stroke(0);
-
-    // this.paper
-    //   .path(200, 200)
-    //   .moveTo(0, 0)
-    //   .curveTo(-50, 0, -50, -20)
-    //   .curveTo(-50, -40, 0, -40)
-    //   .curveTo(50, -40, 200, -20)
-    //   .curveTo(350, 0, 400, 0)
-    //   .curveTo(450, 0, 450, -20)
-    //   .curveTo(450, -40, 400, -40)
-    //   .fill(0, 0, 0, 0.00000001)
-    //   .strokeJoin("round")
-    //   .stroke(0);
   }
 
   test() {
