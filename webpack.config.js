@@ -4,6 +4,7 @@ const WebpackCleanupPlugin = require("webpack-cleanup-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const SriPlugin = require("webpack-subresource-integrity");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const StyleLintPlugin = require("stylelint-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -33,7 +34,14 @@ module.exports = {
   plugins: [
     new WebpackCleanupPlugin(),
     new HtmlWebpackPlugin({ template: "src/index.html" }),
-    new ExtractTextPlugin("calligraphy.css")
+    new ExtractTextPlugin("calligraphy.css"),
+    new StyleLintPlugin({
+      configFile: ".stylelintrc",
+      context: "src",
+      files: "**/*.css",
+      failOnError: false,
+      quiet: false
+    })
   ],
   node: {
     fs: "empty"
