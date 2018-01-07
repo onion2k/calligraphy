@@ -1,15 +1,28 @@
 import "./calligraphy.css";
 import Rune from "rune.js";
 
+const alphabet = {
+  D: {}
+};
+
 class Calligraphy {
   constructor() {
     this.paper = new Rune({
       container: "#paper",
       debug: false
     });
+
+    this.size = 400;
+    this.pressure = 0.05;
   }
   letter(x, y, char) {
-    this.test();
+    switch (char) {
+      case "D":
+        this.test();
+        break;
+      default:
+        break;
+    }
   }
   continuous() {
     this.paper
@@ -25,21 +38,15 @@ class Calligraphy {
       .strokeJoin("round")
       .stroke(0);
 
-    this.paper.circle(400 + -50, 600 + -20, 3);
-    this.paper.circle(400 + 0, 600 + -40, 3);
-    this.paper.circle(400 + 200, 600 + -20, 3);
-    this.paper.circle(400 + 400, 600 + 0, 3);
-    this.paper.circle(400 + 450, 600 + -20, 3);
-    this.paper.circle(400 + 400, 600 + -40, 3);
-
     this.paper.draw();
   }
+
   test() {
-    let width = 400;
-    let pressure = 0.05;
+    let width = this.size;
+    let pressure = this.pressure;
 
     let stroke = {
-      posX: 500,
+      posX: 100,
       posY: 100,
       x1: 0, //from
       y1: 0,
@@ -63,6 +70,40 @@ class Calligraphy {
     };
 
     this.outercurve(stroke);
+
+    this.paper
+      .path(stroke.posX, stroke.posY) //move to point
+      .moveTo(stroke.x1, stroke.y1)
+      .curveTo(-20, 0, -20, -10)
+      .curveTo(-20, -20, 0, -20)
+      .curveTo(20, -20, 20, 0)
+      .fill(0, 0, 0, 0.00000001)
+      .strokeJoin("round")
+      .stroke(0);
+
+    this.outercurve({
+      posX: 100,
+      posY: 100,
+      x1: 20, //from
+      y1: 0,
+      x2: 20, //to - relative to start
+      y2: 400,
+      angle: 30,
+      curve: {
+        inner: {
+          x1: 50 * 0.75,
+          y1: 0,
+          x2: 50 * 0.75,
+          y2: 50
+        },
+        outer: {
+          x1: 50 * 0.75 + 50 * pressure,
+          y1: 50,
+          x2: 50 * 0.75 + 50 * pressure,
+          y2: 0
+        }
+      }
+    });
 
     this.paper
       .path(stroke.posX, stroke.posY) //move to point
@@ -90,7 +131,7 @@ class Calligraphy {
         stroke.curve.inner.y2,
         stroke.x2,
         stroke.y2
-      ) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
+      )
       .curveTo(
         stroke.curve.outer.x1,
         stroke.curve.outer.y1,
@@ -98,7 +139,7 @@ class Calligraphy {
         stroke.curve.outer.y2,
         stroke.x1,
         stroke.y1
-      ) //ctrlx1,ctrly1, ctrlx2,ctrly2, x,y
+      )
       .fill(0);
   }
 }
