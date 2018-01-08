@@ -6,6 +6,11 @@ const SriPlugin = require("webpack-subresource-integrity");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
 
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].[contenthash].css",
+  disable: process.env.NODE_ENV === "development"
+});
+
 module.exports = {
   entry: {
     app: ["./src/index.js"]
@@ -28,17 +33,33 @@ module.exports = {
           fallback: "style-loader",
           use: "css-loader"
         })
+      },
+      {
+        test: /\.scss$/,
+        use: extractSass.extract({
+          use: [
+            {
+              loader: "css-loader"
+            },
+            {
+              loader: "sass-loader"
+            }
+          ],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
       }
     ]
   },
   plugins: [
+    extractSass,
     new WebpackCleanupPlugin(),
     new HtmlWebpackPlugin({ template: "src/index.html" }),
     new ExtractTextPlugin("calligraphy.css"),
     new StyleLintPlugin({
       configFile: ".stylelintrc",
       context: "src",
-      files: "**/*.css",
+      files: "**/*.scss",
       failOnError: false,
       quiet: false
     })

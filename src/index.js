@@ -1,4 +1,4 @@
-import "./calligraphy.css";
+import "./calligraphy.scss";
 import Rune from "rune.js";
 
 const alphabet = {
