@@ -13,7 +13,7 @@ const extractSass = new ExtractTextPlugin({
 
 module.exports = {
   entry: {
-    app: ["./src/index.js"]
+    app: ["./src/calligraphy.js"]
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -45,7 +45,6 @@ module.exports = {
               loader: "sass-loader"
             }
           ],
-          // use style-loader in development
           fallback: "style-loader"
         })
       }
